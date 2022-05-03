@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Binary Search Tree</title>
+</head>
+<body>
+	<script type="text/javascript" src="http://students.engr.scu.edu/~adiaztostado/resources/testBst.js"></script>
+	<script>
+		// Implement a Binary Search Tree using JS Constructors and Pro
+		function Node(val) {
+			this.value = val;
+			this.left = null;
+			this.right = null;
+		}
+
+		function BinarySearchTree() {
+			this.root = null; // root of a binary search tree
+		
+			// functions to be implemented
+			// insert(data)
+			// inorder(node)
+			// search(node, data)
+		}
+
+		BinarySearchTree.prototype.insert = function(val)
+		{
+			// Creating a node and initialising
+			// with data
+			var newNode = new Node(val);
+							
+			// root is null then node will
+			// be added to the tree and made root.
+			if(this.root === null)
+				this.root = newNode;
+			else
+		
+				// find the correct position in the
+				// tree and add the node
+				this.insertNode(this.root, newNode);
+		}
+		
+		BinarySearchTree.prototype.insertNode = function(node, newNode)
+		{
+			if(newNode.value < node.value)
+			{
+				if(node.left === null) //if the val is less than the node val move left of the tree
+					node.left = newNode;
+				else
+					this.insertNode(node.left, newNode);
+			}
+			else
+			{
+				// if right is null insert node here
+				if(node.right === null)
+					node.right = newNode;
+				else
+		
+					// if right is not null recur until
+					// null is found
+					this.insertNode(node.right,newNode);
+			}
+		}
+
+		BinarySearchTree.prototype.inorder = function(fn) //inorder traversal of BST
+		{
+			let current = this.root;
+
+			function traverse(node) {
+				if (node != null) {
+					traverse(node.left);
+					fn(node.value);
+					traverse(node.right);
+				}
+			}
+
+			traverse(current);
+		}
+
+		BinarySearchTree.prototype.search = function(node, data) //serach for input
+		{
+			if(node === null) //if tree is empty
+				return null;
+			else if(data < node.data) //< data go left
+				return this.search(node.left, data);
+			else if(data > node.data) //> data go right
+				return this.search(node.right, data);
+			else //data = to current node
+				return node;
+		}
+
+		let bst = new BinarySearchTree();
+		// Uncomment this line to test your complete BST - make sure to pass a BST object created with the new keyword
+		testBst(bst);
+	</script>
+</body>
+</html>
